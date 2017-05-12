@@ -66,5 +66,9 @@ promu:
 	GOARCH=$(subst x86_64,amd64,$(patsubst i%86,386,$(shell uname -m))) \
 	$(GO) get -u github.com/prometheus/promu
 
+caicloud: build
+	@echo ">> building docker image"
+	@docker build -t cargo.caicloud.io/caicloud/alertmanager:release-v0.4.2 .
+	@docker build -t cargo.caicloud.io/caicloud/alertmanager:v0.4.2 -f Dockerfile-caicloud .
 
 .PHONY: all style format build test vet assets tarball docker promu
